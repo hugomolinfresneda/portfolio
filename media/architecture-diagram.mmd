@@ -1,0 +1,51 @@
+flowchart LR;
+
+client["Client"] -->|"HTTPS"| ingress["Tunnel / Ingress"];
+
+telegram["Telegram"];
+backupTarget["Backup target"];
+
+subgraph host["Linux host"];
+  subgraph docker["Docker / Compose"];
+
+    subgraph proxy["Ingress / proxy network"];
+      grafanaUI["Grafana UI"];
+      appUIs["App UIs: Nextcloud / CouchDB / AdGuard"];
+    end;
+
+    subgraph mon["Monitoring stack"];
+      prometheus["Prometheus"];
+      alertmanager["Alertmanager"];
+      grafana["Grafana"];
+      loki["Loki"];
+      promtail["Promtail"];
+      exporters["Exporters: node_exporter / cAdvisor / blackbox"];
+    end;
+
+    subgraph apps["App stacks"];
+      data["Persistent data / volumes"];
+    end;
+
+    subgraph backup["Backup / restore"];
+      backupJobs["Backup jobs: restic / scripts"];
+    end;
+
+  end;
+end;
+
+ingress --> grafanaUI;
+ingress --> appUIs;
+
+prometheus -->|"scrape"| exporters;
+promtail -->|"push logs"| loki;
+
+grafana -->|"query metrics"| prometheus;
+grafana -->|"query logs"| loki;
+
+prometheus -->|"send alerts"| alertmanager;
+alertmanager -->|"notify"| telegram;
+
+backupJobs -.->|"write"| data;
+backupJobs -->|"read"| data;
+backupJobs -->|"backup"| backupTarget;
+backupTarget -.->|"restore"| backupJobs;
