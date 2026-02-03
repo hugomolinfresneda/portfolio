@@ -11,7 +11,7 @@ Production-inspired homelab portfolio: documented ops workflows, backup/restore 
 - Technical repo (code): [homelab-stacks][homelab-stacks].
 - Case study (2–3 min): [case study][case-study].
 - Demo script (5–7 min): [demo][demo].
-- CV (PDF): [CV][cv].
+- CV: [EN][cv-en] · [ES][cv-es].
 
 ---
 
@@ -39,7 +39,6 @@ Production-inspired homelab portfolio: documented ops workflows, backup/restore 
 - **Case study (2–3 min):** [homelab-stacks case study][case-study] — context, decisions, tradeoffs, operations.
 - **Demo script (5–7 min):** [homelab-stacks demo][demo] — copy/paste walkthrough for interviews.
 - **Screenshots & diagram:** [media/][media] — dashboards, alert example, architecture overview.
-- **CV (PDF):** [CV][cv].
 
 ## Skills (keywords)
 Linux, systemd, Bash, Git, Docker, Docker Compose, DNS/TLS, Prometheus, Alertmanager, Grafana, Loki/Promtail, runbooks, backup/restore, CI checks.
@@ -71,7 +70,8 @@ Madrid-based. Hybrid/remote. No rotating shifts; paid on-call only. Prefer produ
 [homelab-stacks]: https://github.com/hugomolinfresneda/homelab-stacks
 [case-study]: case-studies/homelab-stacks.md
 [demo]: demos/homelab-stacks-demo.md
-[cv]: docs/cv-hugo-molin.pdf
+[cv-en]: docs/cv-hugo-molin-en.pdf
+[cv-es]: docs/cv-hugo-molin-es.pdf
 [media]: media/
 [hs-readme]: https://github.com/hugomolinfresneda/homelab-stacks#readme
 [hs-contract]: https://github.com/hugomolinfresneda/homelab-stacks/blob/main/docs/contract.md
