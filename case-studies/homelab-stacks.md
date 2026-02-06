@@ -14,16 +14,24 @@ Homelabs often drift into host-specific setups: hard-coded paths, undocumented p
 
 I wanted a repo that works as an operations-ready reference: **predictable entrypoints, explicit contracts, and evidence that it can be operated**, not just deployed.
 
+## What you can verify (evidence)
+- Runtime contract: [docs/contract.md][hs-contract] (runtime boundaries, overrides and templates).
+- Monitoring entrypoint: [stacks/monitoring/README.md][hs-monitoring-readme] (dashboards, alerting, runbooks).
+- Runbooks: [stacks/monitoring/runbooks/][hs-runbooks] (linked from alerts via `runbook_url` for fast triage).
+- Backup/restore: [ops/backups/README.md][hs-backups] (Restic-based workflows and recovery steps).
+- Ops entrypoint: [Makefile][hs-makefile] (validation and stack lifecycle targets).
+
 ## Goals
-- **Portability**: avoid host-specific assumptions by defining a stable runtime contract (paths, overrides, templates).
-- **Day-2 operations first**: common tasks should be one command away (status, lifecycle, validation, backups, restore checks).
-- **Actionable observability**: metrics + logs + alerting tied to dashboards and runbooks.
-- **Recovery posture**: document and support backup/restore workflows (and encourage restore testing).
+- **Portability**: define a stable runtime contract (paths, overrides, templates) to avoid host-specific assumptions and keep stacks reproducible across environments.
+- **Day-2 operations first**: ensure common operational tasks are one command away (status, lifecycle, validation, backups, restore checks).
+- **Actionable observability**: tie metrics, logs, and alerting to curated dashboards and concrete operator actions via runbooks.
+- **Recovery posture**: document and support backup and restore workflows, explicitly encouraging restore verification as part of normal operations.
 
 ## Non-goals
-- Not aiming for Kubernetes or “infinite scalability”.
-- Not trying to be a generic framework for everyone; this is a focused, reviewable portfolio artifact.
-- Not a full security hardening reference (only pragmatic guardrails where they improve operability).
+- Kubernetes or multi-node orchestration.
+- Infinite scalability, performance benchmarking, or capacity planning.
+- Enterprise-grade security hardening or compliance-driven controls.
+- A generic framework or product intended to fit all use cases.
 
 ## Approach (key decisions)
 ### 1) Define a runtime contract (reproducibility without leaking host details)
@@ -46,23 +54,18 @@ Backup/restore workflows are documented and operationally visible. In addition t
 
 **Why it matters**: reliable systems include both observability and recovery procedures.
 
-## What you can verify (evidence)
-- Runtime contract: [docs/contract.md][hs-contract] (runtime boundaries, overrides and templates).
-- Monitoring entrypoint: [stacks/monitoring/README.md][hs-monitoring-readme] (dashboards, alerting, runbooks).
-- Runbooks: [stacks/monitoring/runbooks/][hs-runbooks] (linked from alerts via `runbook_url` for fast triage).
-- Backup/restore: [ops/backups/README.md][hs-backups] (Restic-based workflows and recovery steps).
-- Ops entrypoint: [Makefile][hs-makefile] (validation and stack lifecycle targets).
-
 ## Tradeoffs (conscious choices)
-- **Docker Compose over orchestration**: chosen for reviewability and operational simplicity in a homelab context.
-- **Pragmatism over purity**: some components may require rootful Docker or privileged visibility to expose meaningful host/container metrics (explicitly treated as a tradeoff, not an accident).
-- **Operational completeness over catalog size**: prioritised stacks that are fully operable (docs, validation, monitoring, recovery) over maximising the number of services included.
+- **Docker Compose over Kubernetes:** prioritised human reviewability and operational simplicity on a single host over premature scalability; the goal is to understand and operate the system end-to-end before introducing orchestration complexity.
+- **Privileged/rootful containers and simplified secrets:** accepted a controlled increase in risk to expose meaningful host and container metrics, with an explicit focus on limiting blast radius rather than pursuing formal security hardening unsuitable for this context.
+- **Fewer services and alerts, fully operable:** prioritised stacks that can be monitored, validated, troubleshot, and recovered end-to-end over a broader but partially operable service catalogue.
+- **Operational guidance first:** avoided adding features without clear runbooks and operator actions, as undocumented features tend to accumulate faster than the ability to understand or fix them under pressure.
+- **Makefile-first workflows:** automated repetitive tasks while keeping execution paths explicit and traceable, favouring debuggability and operator understanding over opaque “one-click” automation.
+- **Documented runtime overrides:** enforced a clear separation between public configuration and runtime-only overrides to reduce human error while keeping system behaviour predictable and auditable.
+- **No geographic-level DR:** limited disaster recovery to service-level backups and restores; site-level disasters require custody, redundancy and off-site strategies appropriate to more serious environments.
 
 ## What’s next
 - Expand validation where it reduces operational risk (runtime contract checks, env/template drift, and preflight sanity checks).
-- Add an interview-ready walkthrough that covers backup + restore verification and alert triage end-to-end.
 - Keep docs and runbooks aligned with operational entrypoints (Makefile targets, recovery steps, and troubleshooting notes).
-
 
 [hs-contract]: https://github.com/hugomolinfresneda/homelab-stacks/blob/main/docs/contract.md
 [hs-monitoring-readme]: https://github.com/hugomolinfresneda/homelab-stacks/blob/main/stacks/monitoring/README.md
