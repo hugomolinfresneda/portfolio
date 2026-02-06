@@ -59,8 +59,8 @@ Junior-to-junior-high observability engineer focused on platform/toolchain and i
 Madrid-based. Hybrid/remote. No rotating shifts; paid on-call only. Prefer product environments.
 
 ## Contact
-- LinkedIn: https://www.linkedin.com/in/hugomolinfresneda/
-- Email: hugomolinfresneda@gmail.com
+- **LinkedIn**: [hugomolinfresneda][linkedin]
+- **Email:** hugomolinfresneda@gmail.com
 
 ---
 
@@ -80,3 +80,4 @@ Madrid-based. Hybrid/remote. No rotating shifts; paid on-call only. Prefer produ
 [hs-monitoring-readme]: https://github.com/hugomolinfresneda/homelab-stacks/blob/main/stacks/monitoring/README.md
 [hs-runbooks]: https://github.com/hugomolinfresneda/homelab-stacks/tree/main/stacks/monitoring/runbooks
 [hs-backups]: https://github.com/hugomolinfresneda/homelab-stacks/blob/main/ops/backups/README.md
+[linkedin]: https://www.linkedin.com/in/hugomolinfresneda/
